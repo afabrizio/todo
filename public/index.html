@@ -2,12 +2,26 @@
 <html>
   <head>
     <title>Todo App</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <link href="default.css" rel="stylesheet">
   </head>
   <body ng-app="todos">
-    <div ng-controller="HomeController as controller">
-      The HomeController message is: {{ controller.message }}
+    <div ng-controller="Greet as greet">
+      {{ greet.message }}
     </div>
+    <div ng-controller="HomeController as home">
+      <ul ng-repeat="todo in home.todos">
+        <li
+          ng-click="home.toggleComplete(todo)"
+          ng-class="{ complete: todo.complete }">
+            {{ todo.description }}
+        </li>
+      </ul>
+      <p
+      ng-show="home.remaining">
+        {{ home.remaining + ' Tasks Remaining' }}
+      </p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="default.js"></script>
   </body>
 </html>
