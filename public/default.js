@@ -1,8 +1,5 @@
-const app = angular.module('greet', []);
+const todos = angular.module('todos', []);
 
-app.controller('Greet', Greet);
-
-function Greet() {
-  const vm = this; //this is bound to the scope of that controller
-  vm.greeting = 'Hello'
-}
+todos.controller('HomeController', function() {
+  this.message = "'Exercise 76 works!'";
+})

@@ -4,9 +4,9 @@
     <title>Todo App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   </head>
-  <body ng-app = "greet">
-    <div ng-controller="Greet as greet"> <!--run function, and bind the scope with the alias 'greet'-->
-      {{greet.greeting}}
+  <body ng-app="todos">
+    <div ng-controller="HomeController as controller">
+      The HomeController message is: {{ controller.message }}
     </div>
     <script src="default.js"></script>
   </body>
