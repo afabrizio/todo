@@ -3,19 +3,18 @@ module.exports = function routes(db) {
   const router = require('express').Router();
 
   router.get('/todos', (req, res) => {
-    getTasks(res, db);
+    db.collection('todos').find({}).toArray( (err, documents) => {
+      res.json(documents);
+    });
   });
 
   router.post('/todos', (req, res) => {
-
-  });
-
-  function getTasks(res, db) {
-    db.collection('todos').find({}).toArray( (err, documents) => {
-      db.close();
-      res.json(documents);
+    db.collection('todos').insertOne(req.body, (err, result) => {
+      if(err) return res.sendStatus(500);
+      const doc = result.ops[0] //ops property is an array of the affected documents
+      res.json(doc);
     });
-  }
+  });
 
   return router;
 }
