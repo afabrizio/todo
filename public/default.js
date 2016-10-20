@@ -8,11 +8,18 @@ todos.controller('HomeController', HomeController);
 HomeController.$inject = ['$http'];
 
 function HomeController($http) {
-  let vm=this;
+  var vm = this;
 
   $http.get('/todos')
     .then(successCallback, errorCallback)
-    .catch(err => alert(err.message))
+    .catch(err => alert(err.message));
+
+  vm.addTodo = () => {
+    $http.post('/todos', {task: vm.newTodo, complete: false} )
+      .then( () => {
+        updateView();
+      })
+  }
 
   function successCallback(response) {
     vm.todos = response.data;
@@ -29,5 +36,12 @@ function HomeController($http) {
 
   function errorCallback(err) {
     console.error(err);
+  }
+
+  function updateView() {
+    $http.get('/todos')
+      .then(successCallback, errorCallback)
+      .catch(err => alert(err.message));
+    document.getElementById('newTodo').value = '';
   }
 }
